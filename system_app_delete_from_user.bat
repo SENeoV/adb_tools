@@ -1,4 +1,6 @@
 @echo off
+:: Set min_adb_fastboot as current folder
+cd /d "%~dp0min_adb_fastboot"
 :: Check if package name provided
 if "%~1"=="" (
     echo Usage: system_app_delete_from_user.bat ^<package-name^>
