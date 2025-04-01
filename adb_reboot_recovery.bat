@@ -1,8 +1,7 @@
 @echo off
 setlocal enabledelayedexpansion
 
-:: Verify ADB connectivity
-call :check_adb
+call check_adb.bat || exit /b
 
 echo Rebooting to recovery mode...
 adb reboot recovery
@@ -18,13 +17,3 @@ if %errorlevel% equ 0 (
 
 pause
 exit /b
-
-:check_adb
-cd /d "%~dp0min_adb_fastboot"
-adb devices | find "device" >nul || goto :adb_error
-exit /b
-
-:adb_error
-echo Error: No active ADB connection
-pause
-exit /b 1

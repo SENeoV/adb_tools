@@ -1,8 +1,7 @@
 @echo off
 setlocal enabledelayedexpansion
 
-:: Verify ADB connectivity
-call :check_adb
+call check_adb.bat || exit /b
 
 if "%~1"=="" (
     echo Usage: %~nx0 ^<package-name^>
@@ -24,13 +23,4 @@ if %errorlevel% equ 0 (
 )
 
 pause
-exit /b
-
-:check_adb
-cd /d "%~dp0min_adb_fastboot"
-adb devices | find "device" >nul || (
-    echo Error: Device not connected
-    pause
-    exit /b 1
-)
 exit /b
