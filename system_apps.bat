@@ -1,7 +1,25 @@
 @echo off
-:: Set min_adb_fastboot as current folder
-cd /d "%~dp0min_adb_fastboot"
-:: List all system apps on the connected Android device
-echo Listing system apps:
+setlocal enabledelayedexpansion
+
+:: Verify ADB connectivity
+call :check_adb
+
+echo Listing system packages
+echo -------------------------------
 adb shell pm list packages -s | sort
+echo -------------------------------
+echo Total system packages: 
+adb shell pm list packages -s | find /c "package:" 
+echo -------------------------------
 pause
+exit /b
+
+:check_adb
+cd /d "%~dp0min_adb_fastboot"
+adb devices | find "device" >nul
+if %errorlevel% neq 0 (
+    echo Error: Device not connected
+    pause
+    exit /b 1
+)
+exit /b

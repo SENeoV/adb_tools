@@ -1,15 +1,36 @@
 @echo off
-:: Set min_adb_fastboot as current folder
-cd /d "%~dp0min_adb_fastboot"
-:: Check if package name provided
+setlocal enabledelayedexpansion
+
+:: Verify ADB connectivity
+call :check_adb
+
 if "%~1"=="" (
-    echo Usage: system_app_delete_from_user.bat ^<package-name^>
-    echo Example: system_app_delete_from_user.bat com.example.app
+    echo Usage: %~nx0 ^<package-name^>
+    echo Example: %~nx0 com.facebook.appmanager
     exit /b 1
 )
-:: Store the package name
+
 set "packageName=%~1"
-:: echo Command: adb shell pm uninstall -k --user 0 %packageName%
-:: Delete the package using adb
-adb shell pm uninstall -k --user 0 %packageName% 2>nul
+
+echo Removing from user profile: !packageName!
+adb shell pm uninstall -k --user 0 !packageName! 2>nul
+
+if %errorlevel% equ 0 (
+    echo Success: !packageName! removed
+) else (
+    echo Failed to remove !packageName!
+    echo 1. Verify package exists
+    echo 2. Check if system app
+)
+
 pause
+exit /b
+
+:check_adb
+cd /d "%~dp0min_adb_fastboot"
+adb devices | find "device" >nul || (
+    echo Error: Device not connected
+    pause
+    exit /b 1
+)
+exit /b
