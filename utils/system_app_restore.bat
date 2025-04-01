@@ -1,5 +1,5 @@
 @echo off
-call "%~dp0\check_adb.bat" || exit /b
+call "%~dp0\common\check_adb.bat" || exit /b
 
 :: Check package parameter
 if "%~1"=="" (

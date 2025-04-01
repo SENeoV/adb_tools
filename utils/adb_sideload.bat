@@ -1,7 +1,7 @@
 @echo off
 setlocal enabledelayedexpansion
 
-call "%~dp0\check_adb.bat" || exit /b
+call "%~dp0\common\check_adb.bat" || exit /b
 
 if "%~1"=="" (
     echo Usage: %~nx0 ^<update-package^>

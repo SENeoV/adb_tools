@@ -1,7 +1,7 @@
 @echo off
 setlocal enabledelayedexpansion
 
-call "%~dp0\check_adb.bat" || exit /b
+call "%~dp0\common\check_adb.bat" || exit /b
 
 if "%~2"=="" (
     echo Usage: %~nx0 ^<device_file^> ^<local_path^>

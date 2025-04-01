@@ -2,7 +2,7 @@
 setlocal
 set "filename=screenshot_%date:~-4,4%%date:~-7,2%%date:~-10,2%_%time:~0,2%%time:~3,2%%time:~6,2%.png"
 
-call "%~dp0\check_adb.bat" || exit /b
+call "%~dp0\common\check_adb.bat" || exit /b
 
 echo Capturing screenshot...
 adb exec-out screencap -p > "%filename%"
