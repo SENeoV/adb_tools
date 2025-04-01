@@ -1,7 +1,7 @@
 @echo off
 
 :: Verify ADB connectivity
-cd /d "%~dp0min_adb_fastboot"
+cd /d "%~dp0..\min_adb_fastboot"
 adb devices | findstr /r /c:"device$" >nul
 if %errorlevel% neq 0 goto :adb_error
 exit /b 0

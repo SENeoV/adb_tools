@@ -1,7 +1,7 @@
 @echo off
 setlocal enabledelayedexpansion
 
-call check_adb.bat || exit /b
+call "%~dp0\check_adb.bat" || exit /b
 
 echo Device Information
 echo ==================
